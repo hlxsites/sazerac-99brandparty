@@ -250,3 +250,7 @@ main .section {
 main .section.highlight {
   background-color: var(--highlight-background-color);
 }
+
+.product-background {
+  background-repeat: no-repeat;
+}
