@@ -43,10 +43,6 @@
   --footer-link-font-family: var(--body-font-family);
   --footer-body-font-family: var(--heading-font-family);
 
-  --footer-font-size: 14px;
-  --footer-link-font-family: var(--body-font-family);
-  --footer-body-font-family: var(--heading-font-family);
-
   /* nav height */
   --nav-height: 120px;
 }
