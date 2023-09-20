@@ -39,6 +39,10 @@
   --heading-font-size-s: 20px;
   --heading-font-size-xs: 18px;
 
+  --footer-font-size: 14px;
+  --footer-link-font-family: var(--body-font-family);
+  --footer-body-font-family: var(--heading-font-family);
+
   /* nav height */
   --nav-height: 64px;
 
