@@ -111,7 +111,7 @@ export default async function decorate(block) {
 
     const brandSection = nav.querySelector('.nav-brand');
     if (brandSection) {
-      brandSection.innerHTML = `<a href='/'>${brandSection.innerHTML}</a>`;
+      brandSection.innerHTML = `<a href='/' aria-label='Go to 99brandparty'>${brandSection.innerHTML}</a>`;
     }
 
     const navSections = nav.querySelector('.nav-sections');
