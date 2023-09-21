@@ -8,7 +8,6 @@ import {
   decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
-  getMetadata,
   waitForLCP,
   loadBlocks,
   loadCSS,
@@ -60,20 +59,12 @@ function buildAutoBlocks(main) {
   }
 }
 
-function decorateBackground(main) {
-  const bg = getMetadata('background');
-  if (bg) {
-    main.style = `background-image: url('${bg}'); background-repeat: no-repeat; background-size: auto;`;
-  }
-}
-
 /**
  * Decorates the main element.
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
-  decorateBackground(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
