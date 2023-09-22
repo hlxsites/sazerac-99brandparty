@@ -17,6 +17,10 @@ export default async function decorate(block) {
       const path = new URL(link.href).pathname;
       const recipe = index.data.find((r) => r.path === path);
       if (recipe) {
+        const anchor = recipe.title.startsWith('99 ') ? recipe.title.substring(3) : null;
+        if (anchor) {
+          item.id = anchor.toLowerCase();
+        }
         link.textContent = `See ${recipe.title} recipes`;
         // create image
         const img = createOptimizedPicture(recipe.image, true);
