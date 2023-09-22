@@ -13,8 +13,11 @@ function applyBackgroundImage(elementContainingSectionMetadata, elementToApplyBG
     sectionMetadata.remove();
     const backgroundDiv = querySelectorIncludesText(sectionMetadata, 'div>div>div', 'background');
     const styleDiv = querySelectorIncludesText(sectionMetadata, 'div>div>div', 'style');
-    const url = backgroundDiv.nextElementSibling.querySelector('img').src;
     const style = styleDiv.nextElementSibling.textContent;
+
+    let url = backgroundDiv.nextElementSibling.querySelector('img').src;
+    url = url.substring(0, url.indexOf('?'));
+    url += '?width=2000&format=webply&optimize=medium';
 
     elementToApplyBG.classList.add('product-background');
     elementToApplyBG.style.backgroundPosition = style;
