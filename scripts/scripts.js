@@ -25,7 +25,12 @@ function buildHeroBlock(main) {
   // eslint-disable-next-line no-bitwise, max-len
   let isHero = h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING);
   if (!isHero && !h1 && picture) {
-    isHero = !picture.previousElementSibling && !picture.nextElementSibling;
+    const parent = picture.parentElement;
+    if (parent.tagName === 'P') {
+      isHero = !parent.previousElementSibling && !parent.nextElementSibling;
+    } else {
+      isHero = !picture.previousElementSibling && !picture.nextElementSibling;
+    }
   }
   if (isHero) {
     const section = document.createElement('div');

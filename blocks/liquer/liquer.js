@@ -1,15 +1,7 @@
-import { createOptimizedPicture, getMetadata } from '../../scripts/lib-franklin.js';
+import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 import { fetchQueryIndex } from '../../scripts/scripts.js';
 
-function decorateBackground(main) {
-  const bg = getMetadata('background');
-  if (bg) {
-    main.style = `background-image: url('${bg}'); background-repeat: no-repeat; background-size: auto;`;
-  }
-}
-
 export default async function decorate(block) {
-  decorateBackground(document.querySelector('main'));
   const index = await fetchQueryIndex();
   const list = block.querySelector('ul');
   if (list) {
