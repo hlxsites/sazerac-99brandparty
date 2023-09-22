@@ -19,15 +19,29 @@
   display: block;
 }
 
-@media (min-width: 900px) {
+.columns a.button {
+  margin: 0 auto;
+  font-size: var(--button-font-size);
+  font-weight: bold;
+  font-family: var(--heading-font-family);
+  fill: var(--background-color);
+  color: var(--background-color);
+  background-color: var(--header-background-color);
+  padding: 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
   .columns > div {
     align-items: center;
     flex-direction: unset;
-    gap: 32px;
   }
 
   .columns > div > div {
     flex: 1;
     order: unset;
+    width: 33.333%;
   }
 }
