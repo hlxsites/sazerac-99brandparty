@@ -224,7 +224,7 @@ button:disabled, button:disabled:hover {
 a.button.secondary, button.secondary {
   background-color: unset;
   border-style: solid;
-  border-width: 2px 2px 2px 2px;
+  border-width: 2px;
   border-color: var(--header-background-color);
   color: var(--text-color)
 }
@@ -349,10 +349,14 @@ body.hardseltzer main {
 .recipe-left-image p {
   text-align: center;
   color: #F4F4F4;
-  font-family: "Covered By Your Grace", Sans-serif;
+  font-family: "Covered By Your Grace", sans-serif;
   font-size: 24px;
   font-weight: 600;
   margin: 0;
+}
+
+.recipes-section .columns>div {
+  align-items: flex-start;
 }
 
 .recipes-section .columns>div>div {
@@ -365,12 +369,8 @@ body.hardseltzer main {
   padding-top: 100px;
 }
 
-.recipes-section .columns>div {
-  align-items: flex-start;
-}
-
 .recipes-content h3 {
-  font-family: "Covered By Your Grace";
+  font-family: "Covered By Your Grace", sans-serif;
   font-weight: 500;
   font-size: 36px;
   padding-top: 30px;
@@ -378,7 +378,7 @@ body.hardseltzer main {
 
 .recipes-made-with-content{
   color: #F4F4F4;
-  font-family: "Oswald", Sans-serif;
+  font-family: Oswald, sans-serif;
   font-size: 14px;
   font-weight: 300;
   text-transform: uppercase;
@@ -387,9 +387,6 @@ body.hardseltzer main {
 
 .recipes-made-with-content h3, .recipes-made-with-image p{
   margin: 0;
-}
-
-.recipes-made-with-image {
 }
 
 .center-section {
