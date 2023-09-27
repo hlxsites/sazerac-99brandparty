@@ -42,6 +42,7 @@
   --footer-link-font-family: var(--body-font-family);
   --footer-body-font-family: var(--heading-font-family);
 
+   /* font weights */
   --font-weight-xs: 300;
   --font-weight-s: 400;
   --font-weight-m: 500;
