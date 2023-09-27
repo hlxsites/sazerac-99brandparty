@@ -360,6 +360,15 @@ body.hardseltzer main {
   flex-wrap: nowrap;
 }
 
+.recipes-section .columns>div>div:nth-child(2) {
+  max-width: 30%;
+  padding-top: 100px;
+}
+
+.recipes-section .columns>div {
+  align-items: flex-start;
+}
+
 .recipes-content h3 {
   font-family: "Covered By Your Grace";
   font-weight: 500;
