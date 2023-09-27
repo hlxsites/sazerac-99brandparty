@@ -408,7 +408,7 @@ body.hardseltzer main {
   margin: 0 0 10px;
 }
 
-.white-yellow-titl p:first-of-type {
+.recipes-theme>main p:first-of-type {
   margin:0 0 10px;
   color: var(--heading-white);
   font-family: var(--heading-font-family);
@@ -417,7 +417,7 @@ body.hardseltzer main {
   line-height: 15px;
 }
 
-.white-yellow-titl p:nth-of-type(2) {
+.recipes-theme>main p:nth-of-type(2) {
   margin:0 0 10px;
   color: var(--header-background-color);
   font-family: var(--heading-font-family);
@@ -425,3 +425,20 @@ body.hardseltzer main {
   font-weight: var(--font-weight-xl);
 }
 
+.recipes-theme .columns {
+  background-image: url('https://main--sazerac-99brandparty--hlxsites.hlx.live/media/slider-bg-recipes-mobile-576x1024-1.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.recipes-theme .columns>div {
+  background-image: url('https://main--sazerac-99brandparty--hlxsites.hlx.live/media/recipes-background-landing-right.png');
+  background-position: top right;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 1024px) {
+  .recipes-theme .columns, .recipes-theme .columns>div  {
+    background-attachment: fixed;
+  }
+}
