@@ -301,6 +301,24 @@ main .section.highlight {
 }
 
 /* Themes */
+
+.faq-theme main {
+  background-image: url('https://main--sazerac-99brandparty--hlxsites.hlx.live/media/recipes-background-landing-left.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@media (min-width: 1025px) {
+  .faq-theme main {
+    background-attachment: fixed;
+  }
+}
+
+.faq-theme .section {
+  margin: 0 31% 0 24%;
+}
+
+
 body.hardseltzer main {
   background: linear-gradient(
     rgba(0 0 0 / 70%),
@@ -425,20 +443,4 @@ body.hardseltzer main {
   font-family: var(--heading-font-family);
   font-size: 30px;
   font-weight: var(--font-weight-xl);
-}
-
-.faq-theme main {
-  background-image: url('https://main--sazerac-99brandparty--hlxsites.hlx.live/media/recipes-background-landing-left.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-@media (min-width: 1025px) {
-  .faq-theme main {
-    background-attachment: fixed;
-  }
-}
-
-.faq-theme .section {
-  margin: 0 31% 0 24%;
 }
