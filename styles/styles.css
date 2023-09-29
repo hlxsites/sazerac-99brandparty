@@ -335,7 +335,7 @@ body.hardseltzer main {
   background-size: auto;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1000px) {
   body.hardseltzer main {
     background: url('/media/slider-recipes.png');
     background-attachment: fixed;
