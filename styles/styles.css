@@ -29,6 +29,7 @@
   --fixed-font-family: menlo, consolas, 'Liberation Mono', monospace;
 
   /* body sizes */
+  --body-font-size-l: 16px;
   --body-font-size: 14px;
 
   /* heading sizes */
@@ -351,15 +352,28 @@ body.partypacks main .section {
 
 body.partypacks main h2 {
   color: var(--header-background-color);
-  font-size: 20px;
-  font-weight: 400;
+  font-size: var(--heading-font-size-s);
+  font-weight: var(--font-weight-s);
   font-style: normal;
   text-align: center;
   margin: 0 auto;
 }
 
+body.partypacks main .columns > div > div:nth-child(3) h2 {
+  font-size: 28px;
+  color: #FFC443;
+  text-align: left;
+}
+
+body.partypacks main .columns > div > div:nth-child(3) h2:nth-child(2) {
+  font-size: 36px;
+  color: #FFF;
+  margin-bottom: 10px;
+}
+
 body.partypacks main p {
   margin: 0;
+  font-size: var(--body-font-size-l);
 }
 
 body.partypacks main h2+p {
