@@ -29,11 +29,12 @@
   --fixed-font-family: menlo, consolas, 'Liberation Mono', monospace;
 
   /* body sizes */
+  --body-font-size-xl: 20px;
   --body-font-size-l: 16px;
   --body-font-size: 14px;
 
   /* heading sizes */
-  --heading-font-size-xxl: 48px;
+  --heading-font-size-xxl: 53px;
   --heading-font-size-xl: 34px;
   --heading-font-size-l: 32px;
   --heading-font-size-m: 24px;
@@ -338,6 +339,10 @@ body.newproducts main .default-content-wrapper {
   max-width: 1140px;
 }
 
+body.newproducts main h2 {
+  font-size: var(--heading-font-size-xxl);
+}
+
 body.hardseltzer main {
   background: linear-gradient(
     rgba(0 0 0 / 70%),
@@ -464,8 +469,16 @@ body.partypacks main p {
   font-size: var(--body-font-size-l);
 }
 
+body.newproducts main p {
+  font-size: var(--body-font-size-l);
+}
+
 body.partypacks main h2+p {
   text-align: center;
+}
+
+body.newproducts main h2+p {
+  font-size: var(--body-font-size-xl);
 }
 
 .recipes-theme>main p:first-of-type {
@@ -495,6 +508,10 @@ body.partypacks main h2+p {
   background-image: url('/media/recipes-background-landing-right.png?width=2000&format=webply&optimize=medium');
   background-position: top right;
   background-repeat: no-repeat;
+}
+
+body.newproducts main .default-content-wrapper p {
+  font-size: var(--body-font-size-xl);
 }
 
 @media (min-width: 1024px) {
@@ -531,4 +548,8 @@ body.partypacks main h2+p {
   font-weight: var(--font-weight-xs);
   text-transform: uppercase;
   padding-top: 35px;
+}
+
+body.newproducts main h3 {
+  font-size: 30px;
 }

@@ -1,6 +1,6 @@
 .columns > div {
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
 }
 
 .columns img {
@@ -21,12 +21,16 @@
 }
 
 body.newproducts main .columns.columns-4-cols img {
-  width: 60%;
+  width: 30%;
 }
 
 @media (min-width: 768px) {
+  body.newproducts main .columns.columns-4-cols img {
+    width: 60%;
+  }
+
   .columns > div {
-    flex-direction: unset;
+    flex-direction: row;
     margin-left: auto;
     margin-right: auto;
   }
@@ -42,7 +46,7 @@ body.newproducts main .columns.columns-4-cols img {
   }
 
   .columns.columns-4-cols > div > div {
-    width: 33.333%;
+    width: 50%;
   }
 
   body.partypacks .columns > div {
@@ -51,5 +55,11 @@ body.newproducts main .columns.columns-4-cols img {
 
   body.newproducts .columns > div {
     max-width: 1140px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .columns.columns-4-cols > div > div {
+    width: 25%;
   }
 }
