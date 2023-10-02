@@ -31,14 +31,6 @@ body.newproducts main .columns.columns-4-cols img {
     margin-right: auto;
   }
 
-  body.partypacks .columns > div {
-    max-width: 900px;
-  }
-
-  body.newproducts .columns > div {
-    max-width: 1140px;
-  }
-
   .columns > div > div {
     flex: 1;
     order: unset;
@@ -51,5 +43,13 @@ body.newproducts main .columns.columns-4-cols img {
 
   .columns.columns-4-cols > div > div {
     width: 33.333%;
+  }
+
+  body.partypacks .columns > div {
+    max-width: 900px;
+  }
+
+  body.newproducts .columns > div {
+    max-width: 1140px;
   }
 }

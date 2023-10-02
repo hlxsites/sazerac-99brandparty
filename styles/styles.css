@@ -330,9 +330,6 @@ body.newproducts main {
   background: url('/media/new-products.png?width=2000&format=webply&optimize=medium');
   background-repeat: no-repeat;
   background-size: contain;
-}
-
-body.newproducts main {
   text-align: center;
 }
 
