@@ -371,15 +371,6 @@ body.partypacks main .columns > div > div:nth-child(3) h2:nth-child(2) {
   margin-bottom: 10px;
 }
 
-body.partypacks main p {
-  margin: 0;
-  font-size: var(--body-font-size-l);
-}
-
-body.partypacks main h2+p {
-  text-align: center;
-}
-
 @media (min-width: 1000px) {
   body.hardseltzer main {
     background: url('/media/slider-recipes.png?width=2000&format=webply&optimize=medium');
@@ -455,6 +446,15 @@ body.partypacks main h2+p {
   font-size: var(--body-font-size);
   font-weight: var(--font-weight-l);
   margin: 0 0 10px;
+}
+
+body.partypacks main p {
+  margin: 0;
+  font-size: var(--body-font-size-l);
+}
+
+body.partypacks main h2+p {
+  text-align: center;
 }
 
 .recipes-theme>main p:first-of-type {
