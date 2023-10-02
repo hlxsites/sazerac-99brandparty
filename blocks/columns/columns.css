@@ -9,6 +9,7 @@
 
 .columns > div > div {
   order: 1;
+  padding: 10px;
 }
 
 .columns > div > .columns-img-col {
@@ -19,24 +20,12 @@
   display: block;
 }
 
-.columns a.button {
-  margin: 0 auto;
-  font-size: var(--button-font-size);
-  font-weight: bold;
-  font-family: var(--heading-font-family);
-  fill: var(--background-color);
-  color: var(--background-color);
-  background-color: var(--header-background-color);
-  padding: 13px;
-  border-radius: 3px;
-  text-transform: uppercase;
-  line-height: 1;
-}
-
 @media (min-width: 768px) {
   .columns > div {
-    align-items: center;
     flex-direction: unset;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .columns > div > div {

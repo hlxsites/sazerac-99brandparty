@@ -355,9 +355,18 @@ body.partypacks main h2 {
   font-weight: 400;
   font-style: normal;
   text-align: center;
+  margin: 0 auto;
 }
 
-@media (min-width: 1024px) {
+body.partypacks main p {
+  margin: 0;
+}
+
+body.partypacks main h2+p {
+  text-align: center;
+}
+
+@media (min-width: 1000px) {
   body.hardseltzer main {
     background: url('/media/slider-recipes.png?width=2000&format=webply&optimize=medium');
     background-attachment: fixed;
