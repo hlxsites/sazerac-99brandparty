@@ -326,6 +326,20 @@ main .section.highlight {
   margin: 0 31% 0 24%;
 }
 
+body.newproducts main {
+  background: url('/media/new-products.png?width=2000&format=webply&optimize=medium');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+body.newproducts main {
+  text-align: center;
+}
+
+body.newproducts main .default-content-wrapper {
+  margin: 180px auto 0;
+  max-width: 1140px;
+}
 
 body.hardseltzer main {
   background: linear-gradient(
