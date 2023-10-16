@@ -1,9 +1,13 @@
 import { alert99 } from '../../scripts/scripts.js';
 
+const resultsPerPage = 15;
+
 let map;
 let infoWindow;
 let geolocat = false;
 let pos;
+const markers = [];
+
 const countryWithAlcohol = ['Massachusetts', 'South Carolina', 'West Virginia', 'Arkansas', 'Pennsylvania'];
 
 function isZIP(text) {
@@ -26,18 +30,83 @@ async function isCountryWithoutAlcohol() {
   return country;
 }
 
-async function makeQueryProduct(productId, nresult, radi) {
-  const url = `https://99brandparty.com/storelocator.php?lat=${pos.lat}&lng=${pos.lng}&token=75r_SCHLMSclHme0x9K_iA&product=${productId}&within=${radi}`;
+function getLink(x1, y1, x2, y2) {
+  return `https://www.google.com.co/maps/dir/${x1},${y1}/${x2},${y2}/?hl=en`;
+}
+
+function addMarker(place, i) {
+  // eslint-disable-next-line no-undef
+  const myLatlng = new google.maps.LatLng(place.latitude, place.longitude);
+  const pinColor = 'FEF102';
+  // eslint-disable-next-line no-undef
+  const pinImage = new google.maps.MarkerImage(
+    `http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|${pinColor}`,
+    // eslint-disable-next-line no-undef
+    new google.maps.Size(21, 34),
+    // eslint-disable-next-line no-undef
+    new google.maps.Point(0, 0),
+    // eslint-disable-next-line no-undef
+    new google.maps.Point(10, 34),
+  );
+  // eslint-disable-next-line no-undef
+  const marker = new google.maps.Marker({
+    map,
+    position: myLatlng,
+    icon: {
+      url: 'https://mt.google.com/vt/icon/name=icons/onion/SHARED-mymaps-pin-container-bg_4x.png,icons/onion/SHARED-mymaps-pin-container_4x.png,icons/onion/1899-blank-shape_pin_4x.png&highlight=ff000000,ffd600,ff000000&scale=2.0',
+      // eslint-disable-next-line no-undef
+      anchor: new google.maps.Point(30, 30),
+      // eslint-disable-next-line no-undef
+      scaledSize: new google.maps.Size(30, 30),
+    },
+  });
+
+  // eslint-disable-next-line no-undef
+  google.maps.event.addListener(marker, 'click', () => {
+    infoWindow.setContent(`<div class="info-ubic">
+      <h5>${i + 1}  - ${place.name}</h5>
+        <div class="info-ubic-d">
+          <p>${place.address}, <span>${place.city}</span></p>
+          <p class="link-result"><a target="_blank" class="btn" href="${getLink(pos.lat, pos.lng, place.latitude, place.longitude)}">DIRECTIONS</a></p>
+        </div>
+      </div>`);
+    infoWindow.open(map, marker);
+  });
+  markers.push(marker);
+}
+
+function printResults(array, elem, nresult) {
+  let ultimo = false;
+  let freno = 0;
+  let pagina = 1;
+  if (array.length > 0) {
+    // TODO print results
+  } else {
+    alert99('No results found, try another flavor.');
+  }
+}
+
+async function makeQueryProduct(product, radius) {
+  const url = `https://99brandparty.com/storelocator.php?lat=${pos.lat}&lng=${pos.lng}&token=75r_SCHLMSclHme0x9K_iA&product=${product}&within=${radius}`;
   const result = await fetch(url);
   if (!result.ok) {
     const data = await result.json();
     console.log(data);
+    infoWindow.close();
     const isCountryWithAlcohol = isCountryWithoutAlcohol();
-    if (isCountryWithAlcohol) {
-      alert99(isCountryWithAlcohol);
-      infoWindow.setContent(isCountryWithAlcohol);
+    if (!isCountryWithAlcohol) {
+      if (data) {
+        data.data.locations.forEach((location, i) => {
+          addMarker(location, i);
+        });
+        printResults(data.data.locations, document.getElementById('locator-results'), resultsPerPage);
+      } else {
+        alert99('No results found, try another flavor.');
+      }
     } else {
-      infoWindow.close();
+      alert99(isCountryWithAlcohol);
+      infoWindow.open(map);
+      infoWindow.setContent(isCountryWithAlcohol);
     }
   }
 }
@@ -55,28 +124,16 @@ async function searchForZip(zip, product, radius) {
       pos = data.results[0].geometry.location;
       map.setCenter(pos);
       infoWindow.setPosition(pos);
-      await makeQueryProduct(product, null, radius);
+      await makeQueryProduct(product, radius);
     }
   }
-}
-
-function formSubmitted(form) {
-  const zip = form.querySelector('#zip').value;
-  if (!isZIP(zip)) {
-    alert99('Please enter a valid ZIP code.');
-    return;
-  }
-  const product = form.querySelector('#product').value;
-  const radius = form.querySelector('#distance').value;
-  console.log('form submitted', zip, product, radius);
-  searchForZip(zip, product, radius);
 }
 
 function handleLocationError() {
   document.getElementById('locator-map').innerHTML = 'Error: Your browser doesn\'t support geolocation.';
 }
 
-function getMyLocation(subSinc, product, result, dradius) {
+function getMyLocation(subSinc, product, radius) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
       geolocat = true;
@@ -89,7 +146,7 @@ function getMyLocation(subSinc, product, result, dradius) {
       infoWindow.setContent('Location found.');
       map.setCenter(pos);
       if (subSinc) {
-        makeQueryProduct(product, result, dradius);
+        makeQueryProduct(product, radius);
       }
     }, (e) => {
       if (e.code === 1) {
@@ -100,6 +157,28 @@ function getMyLocation(subSinc, product, result, dradius) {
   } else {
     // Browser doesn't support Geolocation
     handleLocationError();
+  }
+}
+
+function formSubmitted(form) {
+  const zip = form.querySelector('#zip').value;
+  if (!isZIP(zip)) {
+    alert99('Please enter a valid ZIP code.');
+    return;
+  }
+  const product = form.querySelector('#product').value;
+  const radius = form.querySelector('#distance').value;
+  console.log('form submitted', zip, product, radius);
+  if (geolocat) {
+    if (!isZIP(zip)) {
+      getMyLocation(true, product, radius);
+    } else {
+      searchForZip(zip, product, radius);
+    }
+  } else if (isZIP(zip)) {
+    searchForZip(zip, product, radius);
+  } else {
+    alert99('Please enter a valid ZIP code.');
   }
 }
 
@@ -135,5 +214,9 @@ export default async function decorate(block) {
   mdiv.id = 'locator-map';
   mdiv.className = 'map';
   d.append(mdiv);
+  const rdiv = document.createElement('div');
+  rdiv.id = 'locator-results';
+  rdiv.className = 'results';
+  d.appendChild(rdiv);
   block.append(d);
 }
