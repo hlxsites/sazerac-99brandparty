@@ -18,11 +18,11 @@ async function isCountryWithoutAlcohol() {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyAyfNEYMmECQLIBpa97FVwiQH0Q9ayqK0Y&location_type=APPROXIMATE&result_type=administrative_area_level_1`;
   const response = await fetch(url);
   let country;
-  if (response.ok()) {
+  if (response.ok) {
     const data = await response.json();
     if (data.status === 'OK') {
       const search = data.results[0].address_components[0].long_name;
-      if (countryWithAlcohol.find(search)) {
+      if (countryWithAlcohol.find((c) => c === search)) {
         country = `Information not available for ${search}`;
       }
     }
@@ -76,24 +76,48 @@ function addMarker(place, i) {
 }
 
 function printResults(array, elem, nresult) {
-  let ultimo = false;
-  let freno = 0;
-  let pagina = 1;
+  elem.innerHTML = '';
   if (array.length > 0) {
-    // TODO print results
+    let page = null;
+    let show = true;
+    array.forEach((element, i) => {
+      if (!page) {
+        page = document.createElement('div');
+        page.className = 'results-page';
+        elem.appendChild(page);
+        if (!show) {
+          page.style.display = 'none';
+        }
+      }
+      const div = document.createElement('div');
+      div.className = 'result';
+      div.innerHTML = `<p class='info-title'>${element.name}</p>
+        <p class='info-address'>${element.address}, ${element.city}, ${element.state}</p>
+        <a class='button' target='_blank' href='${getLink(pos.lat, pos.lng, element.latitude, element.longitude)}'>DIRECTIONS</a>
+      `;
+      page.appendChild(div);
+
+      if (i > 0 && i % nresult === 0) {
+        page = null;
+        show = false;
+      }
+    });
+    if (!show && page) {
+      // TODO add pagination
+    }
   } else {
     alert99('No results found, try another flavor.');
   }
 }
 
 async function makeQueryProduct(product, radius) {
-  const url = `https://99brandparty.com/storelocator.php?lat=${pos.lat}&lng=${pos.lng}&token=75r_SCHLMSclHme0x9K_iA&product=${product}&within=${radius}`;
-  const result = await fetch(url);
-  if (!result.ok) {
-    const data = await result.json();
+  const url = '/blocks/locator/testdata.json'; // `https://99brandparty.com/storelocator.php?lat=${pos.lat}&lng=${pos.lng}&token=75r_SCHLMSclHme0x9K_iA&product=${product}&within=${radius}`;
+  const response = await fetch(url);
+  if (response.ok) {
+    const data = await response.json();
     console.log(data);
     infoWindow.close();
-    const isCountryWithAlcohol = isCountryWithoutAlcohol();
+    const isCountryWithAlcohol = await isCountryWithoutAlcohol();
     if (!isCountryWithAlcohol) {
       if (data) {
         data.data.locations.forEach((location, i) => {
