@@ -62,6 +62,7 @@ function createButton(fd) {
         if (isFct) {
           const fct = fd.Extra.replace('()', '');
           await window[fct](form);
+          button.removeAttribute('disabled');
         } else {
           await submitForm(form);
           const redirectTo = fd.Extra;
