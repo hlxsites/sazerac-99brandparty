@@ -97,7 +97,7 @@ function printResults(array, elem, nresult) {
       `;
       page.appendChild(div);
 
-      if (i > 0 && i % nresult === 0) {
+      if ((i + 1) % nresult === 0) {
         page = null;
         show = false;
       }
