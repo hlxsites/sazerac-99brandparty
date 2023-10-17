@@ -127,9 +127,9 @@ function printResults(array, elem, nresult) {
 }
 
 async function makeQueryProduct(product, radius) {
-  // TODO switch to real storelocator API
-  const url = '/blocks/locator/testdata.json'; // `https://99brandparty.com/storelocator.php?lat=${pos.lat}&lng=${pos.lng}&token=75r_SCHLMSclHme0x9K_iA&product=${product}&within=${radius}`;
-  const response = await fetch(url);
+  // TODO enable locator api when cors problems are solved
+  const url = '/blocks/locator/testdata.json'; // `https://api.sazerac.com/where_to_buy/api/products/${product}.json?lat=${pos.lat}&lng=${pos.lng}&token=75r_SCHLMSclHme0x9K_iA&within=${radius}`;
+  const response = await fetch(url, { mode: 'no-cors' });
   if (response.ok) {
     const data = await response.json();
     infoWindow.close();

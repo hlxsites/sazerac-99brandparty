@@ -35,14 +35,25 @@ function createSelect(fd) {
     ph.setAttribute('disabled', '');
     select.append(ph);
   }
-  fd.Options.split(',').forEach((o) => {
+  if (fd.State && fd.State === 'disabled') {
+    select.setAttribute('disabled', '');
+  }
+  const values = fd.Values ? fd.Values.split(',') : [];
+
+  fd.Options.split(',').forEach((o, i) => {
     const option = document.createElement('option');
     option.textContent = o.trim();
-    option.value = o.trim();
+    option.value = values[i]?.trim() ?? o.trim();
     select.append(option);
   });
-  if (fd.Mandatory === 'x') {
+  if (fd.Mandatory) {
     select.setAttribute('required', 'required');
+  }
+  if (fd.Enable) {
+    select.addEventListener('change', () => {
+      const enable = document.getElementById(fd.Enable);
+      enable.removeAttribute('disabled');
+    });
   }
   return select;
 }
