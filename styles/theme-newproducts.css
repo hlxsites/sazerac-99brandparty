@@ -24,6 +24,15 @@ h2 {
     text-align: left;
 }
 
+/* list of products */
+.table-of-products h3 {
+    font-size: 30px;
+}
+
+.table-of-products h3+p {
+    font-size: var(--body-font-size-l);
+}
+
 .newproducts main .default-content-wrapper p {
     font-size: var(--body-font-size-xl);
 }

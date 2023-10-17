@@ -2,6 +2,7 @@
 - shows an image, a title and a text for each product
 - four products per line, when above breakpoint 1000px
 - two products per line when 999px and below
+- images height to 250px
  */
 .table-of-products-wrapper {
     justify-content: center;
@@ -29,15 +30,6 @@
     }
 }
 
-/* list of products */
-.table-of-products h3 {
-    font-size: 30px;
-}
-
-.table-of-products p {
-    font-size: var(--body-font-size-l);
-}
-
 .table-of-products img {
-    max-width: 130px;
+    max-height: 250px;
 }
