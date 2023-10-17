@@ -6,9 +6,25 @@ let map;
 let infoWindow;
 let geolocat = false;
 let pos;
-const markers = [];
+let markers = [];
 
 const countryWithAlcohol = ['Massachusetts', 'South Carolina', 'West Virginia', 'Arkansas', 'Pennsylvania'];
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  markers.forEach((marker) => marker.setMap(null));
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+
+function deleteResult() {
+  deleteMarkers();
+  document.getElementById('locator-results').innerHTML = '';
+}
 
 function isZIP(text) {
   return /\d+$/.test(text) && (text.length === 5);
@@ -111,11 +127,11 @@ function printResults(array, elem, nresult) {
 }
 
 async function makeQueryProduct(product, radius) {
+  // TODO switch to real storelocator API
   const url = '/blocks/locator/testdata.json'; // `https://99brandparty.com/storelocator.php?lat=${pos.lat}&lng=${pos.lng}&token=75r_SCHLMSclHme0x9K_iA&product=${product}&within=${radius}`;
   const response = await fetch(url);
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
     infoWindow.close();
     const isCountryWithAlcohol = await isCountryWithoutAlcohol();
     if (!isCountryWithAlcohol) {
@@ -186,13 +202,13 @@ function getMyLocation(subSinc, product, radius) {
 
 function formSubmitted(form) {
   const zip = form.querySelector('#zip').value;
+  deleteResult();
   if (!isZIP(zip)) {
     alert99('Please enter a valid ZIP code.');
     return;
   }
   const product = form.querySelector('#product').value;
   const radius = form.querySelector('#distance').value;
-  console.log('form submitted', zip, product, radius);
   if (geolocat) {
     if (!isZIP(zip)) {
       getMyLocation(true, product, radius);
@@ -231,6 +247,8 @@ export default async function decorate(block) {
   window.initMap = async () => {
     initMap();
   };
+  document.querySelector('#zip').setAttribute('pattern', '[0-9]{5}');
+
   block.textContent = '';
   const d = document.createElement('div');
   d.className = 'map-container';
