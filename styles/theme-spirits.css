@@ -1,8 +1,8 @@
 /* the yellow title under each picture */
-.spirits p:nth-of-type(2) {
+.table-of-products p:nth-of-type(2) {
     color: var(--header-background-color);
     font-family: Oswald, sans-serif;
-    font-size: 19px;
+    font-size: 20px;
     font-weight: 400;
 }
 
@@ -36,7 +36,6 @@ main {
     background: url('/media/spirits-background-left.png?width=2000&format=webply&optimize=medium');
     background-position: top left;
     background-repeat: no-repeat;
-    background-color: transparent !important;
 }
 
 .section {
@@ -44,5 +43,4 @@ main {
     background-position: bottom right;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-color: transparent !important;
 }
