@@ -30,7 +30,7 @@
   .liquer-container .liquer-item {
     flex-direction: row;
   }
-  
+
   .liquer-container .liquer-item.right {
     flex-direction: row-reverse;
   }
