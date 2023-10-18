@@ -20,6 +20,10 @@ export default async function decorate(block) {
     mobileParent?.classList.add('mobile');
     mobile?.remove();
 
+    Array.from(background.querySelectorAll('img')).forEach((img) => {
+      img.setAttribute('loading', 'eager');
+    });
+
     block.querySelector('.ageverification > div').prepend(background);
 
     const buttons = block.querySelectorAll('.verification a');
