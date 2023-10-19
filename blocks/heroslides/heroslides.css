@@ -100,8 +100,13 @@ main .heroslides .wrapper p > strong {
   font-family: var(--heading-font-family);
 }
 
-main .heroslides .wrapper > div {
+main .heroslides :not(.hidden) .wrapper > div,
+main .heroslides .wrapper > div > p:first-child,
+main .heroslides .wrapper > div > p:nth-child(2),
+main .heroslides .wrapper > div > p:last-child {
   text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 main .heroslides .hidden {
@@ -140,8 +145,8 @@ main .heroslides > div .wrapper a {
 
   main .heroslides .wrapper {
     width: 340px;
-    margin-top: 10%;
-    margin-left: auto;
+    margin-top: 6%;
+    margin-left: 15%;
     margin-right: auto;
     display: flex;
     justify-items: center;
@@ -150,7 +155,7 @@ main .heroslides > div .wrapper a {
 
   main .heroslides .hidden .wrapper {
     position: unset;
-    margin-top: 10%;
+    margin-top: 4.5%;
   }
 
   main .heroslides .wrapper > div {
@@ -161,8 +166,31 @@ main .heroslides > div .wrapper a {
     width: 50%;
   }
 
+
+  main .heroslides .wrapper p {
+    font-size: 14px;
+    margin-top: 0;
+    font-family: var(--heading-font-family);
+  }
+
+  main .heroslides .wrapper p:first-of-type {
+    margin-bottom: 0;
+  }
+
+  main .heroslides .wrapper p:not(:first-child, :nth-child(2)) {
+    max-width: 230px;
+  }
+  
+  main .heroslides :not(.hidden) .wrapper > div,
+  main .heroslides .wrapper > div > p:first-child,
+  main .heroslides .wrapper > div > p:nth-child(2),
+  main .heroslides .wrapper > div > p:last-child {
+  text-align: unset;
+}
+
   main .heroslides > div > div > picture img {
-    width: 55vw;
+    width: 60vw;
+    max-width: 750px;
   }
 
   main .heroslides .links {
