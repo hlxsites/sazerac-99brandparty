@@ -144,7 +144,6 @@ h1, h2, h3,
 h4, h5, h6 {
   font-family: var(--heading-font-family);
   font-weight: var(--font-weight-l);
-  line-height: 1.25;
   margin-top: 28px;
   margin-bottom: 10px;
   scroll-margin: calc(var(--nav-height) + 1em);
@@ -399,14 +398,18 @@ body.partypacks main .columns > div > div:nth-child(3) h2:nth-child(2) {
 .liquer-section .columns-img-col {
   max-width: 130px;
   padding-right: 130px;
-  padding-top: 115px
+  padding-top: 140px
 }
 
-@media (min-width: 900px) {
+@media (min-width: 767px) {
   /* the description and two buttons next to the liquer image */
   .liquer-section > div > div > div > div:nth-child(2) {
-    padding-top: 160px;
+    padding-top: 210px;
   }
+}
+
+.liquer-section a {
+  width: 185px;
 }
 
 .liquer-section>div {
@@ -421,6 +424,10 @@ body.partypacks main .columns > div > div:nth-child(3) h2:nth-child(2) {
 .recipe-left-image {
   min-width: 200px;
   padding-right: 30px;
+}
+
+.recipe-left-image img {
+  max-width: 200px;
 }
 
 .recipe-left-image p {
@@ -442,10 +449,14 @@ body.partypacks main .columns > div > div:nth-child(3) h2:nth-child(2) {
 }
 
 .section p {
-  color: #E0E0E0;
+  color: #F4F4F4;
   font-size: var(--body-font-size);
   font-weight: var(--font-weight-l);
   margin: 0 0 10px;
+}
+
+.liquer-section p {
+  font-weight: var(--font-weight-xs);
 }
 
 body.partypacks main p {
@@ -506,15 +517,42 @@ body.partypacks main h2+p {
 }
 
 .recipes-section .columns>div>div:nth-child(2) {
-  max-width: 30%;
   padding-top: 100px;
+}
+
+.recipes-section > div {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+}
+
+.recipes-section div > div {
+  max-width: 1140px;
+}
+
+@media (max-width: 767px) {
+  .recipes-section div > div > div > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recipes-section .columns>div {
+    align-items: center;
+  }
+}
+
+.recipes-section p {
+  color: #FFF;
+  font-family: Oswald, sans-serif;
+  font-weight: var(--font-weight-s);
+  line-height: 20px;
 }
 
 .recipes-content h3 {
   font-family: var(--heading-font-family-product);
   font-weight: var(--font-weight-m);
   font-size: 36px;
-  padding-top: 30px;
+  padding-top: 0;
 }
 
 .recipes-made-with-content{
@@ -524,4 +562,15 @@ body.partypacks main h2+p {
   font-weight: var(--font-weight-xs);
   text-transform: uppercase;
   padding-top: 35px;
+}
+
+.recipes-made-with-content h3 {
+  font-weight: var(--font-weight-lplus);
+  font-size: 34px;
+  line-height: 34px;
+  text-transform: none;
+}
+
+.recipes-section {
+  border-bottom: var(--header-background-color) 2.5px solid;
 }
