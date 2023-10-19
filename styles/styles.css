@@ -595,3 +595,12 @@ body.partypacks main h2+p {
   border-bottom: var(--header-background-color) 2.5px solid;
 }
 
+.form .button {
+  border: var(--header-background-color) 1px solid;
+  border-radius: 3px;
+  font-weight: var(--font-weight-s);
+  font-family: Oswald, sans-serif;
+  font-size: 10px;
+  width: 72px;
+}
+
