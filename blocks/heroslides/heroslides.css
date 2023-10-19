@@ -48,6 +48,17 @@ main .heroslides .wrapper {
   margin-top: -30%;
   width: 100%;
   padding-bottom: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+main .heroslides p,
+main .heroslides div {
+  color: white;
+} 
+
+main .heroslides .wrapper > div {
+  max-width: 450px;
 }
 
 main .heroslides .hidden .wrapper {
@@ -57,11 +68,6 @@ main .heroslides .hidden .wrapper {
 main .heroslides .wrapper img {
   max-height: 88px;  
 }
-
-main .heroslides p,
-main .heroslides div {
-  color: white;
-} 
 
 main .heroslides > div:first-of-type {
   animation: fade-out 10s;
@@ -80,7 +86,8 @@ main .heroslides .wrapper p {
 
 main .heroslides .links {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 main .heroslides .links > p {
@@ -180,7 +187,7 @@ main .heroslides > div .wrapper a {
   main .heroslides .wrapper p:not(:first-child, :nth-child(2)) {
     max-width: 230px;
   }
-  
+
   main .heroslides :not(.hidden) .wrapper > div,
   main .heroslides .wrapper > div > p:first-child,
   main .heroslides .wrapper > div > p:nth-child(2),
