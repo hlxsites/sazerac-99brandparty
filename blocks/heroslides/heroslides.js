@@ -24,6 +24,6 @@ export default async function decorate(block) {
       title: 'Shop Now',
     });
     link.innerText = 'Shop Now';
-    element.parentElement.replaceWith(link);
+    element.replaceWith(link);
   });
 }
