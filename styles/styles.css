@@ -432,11 +432,11 @@ body.partypacks main .columns > div > div:nth-child(3) h2:nth-child(2) {
 
 .recipe-left-image p {
   text-align: center;
-  color: var(--heading-white);
-  font-family: var(--heading-font-family-product);
-  font-size: 24px;
-  font-weight: var(--font-weight-l);
-  margin: 0;
+  color: var(--heading-white) !important;
+  font-family: var(--heading-font-family-product) !important;
+  font-size: 24px !important;
+  font-weight: var(--font-weight-l) !important;
+  margin: 0 !important;
 }
 
 .recipes-made-with-content h3, .recipes-made-with-image p{
