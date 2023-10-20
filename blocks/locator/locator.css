@@ -66,11 +66,78 @@ main .form textarea, main .form select {
   font-weight: 700;
 }
 
-.required {
+.required, .disclaimer {
   color: rgb(115, 115, 115);
   font-family: OpenSansRegular, sans-serif;
   font-size: 10.6667px;
   font-weight: 700;
   height: 15.2344px;
   line-height: 15.2381px;
+}
+
+.disclaimer {
+  padding-top: 10px;
+  padding-bottom: 30px;
+  font-size: 14px;
+}
+
+.results-page span {
+  color: rgb(255, 255, 255);
+  font-family: OpenSansRegular, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  height: 26.3984px;
+  text-transform: uppercase;
+}
+
+.result {
+  display:flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1.5px solid rgb(141, 141, 3);
+  margin: 15px 0;
+}
+
+.result:first-of-type {
+  border-top: 1.5px solid rgb(141, 141, 3);
+  padding-top: 15px;
+}
+
+.result div {
+  flex-grow: 1;
+}
+
+.icon-num {
+  width: 46px;
+  height: 46px;
+  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg width='24' height='24' fill-rule='evenodd' clip-rule='evenodd' version='1.1' id='svg1' sodipodi:docname='iconmonstr-location-pin-thin.svg' inkscape:version='1.3 (0e150ed, 2023-07-21)' xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' xmlns='http://www.w3.org/2000/svg' xmlns:svg='http://www.w3.org/2000/svg'%3E%3Cdefs id='defs1' /%3E%3Csodipodi:namedview id='namedview1' pagecolor='%23505050' bordercolor='%23ffffff' borderopacity='1' inkscape:showpageshadow='0' inkscape:pageopacity='0' inkscape:pagecheckerboard='1' inkscape:deskcolor='%23505050' inkscape:zoom='35.958333' inkscape:cx='12' inkscape:cy='11.986095' inkscape:window-width='1392' inkscape:window-height='1051' inkscape:window-x='2899' inkscape:window-y='95' inkscape:window-maximized='0' inkscape:current-layer='svg1' /%3E%3Cpath d='M 12,0 C 7.802,0 4,3.403 4,7.602 4,11.8 7.469,16.812 12,24 16.531,16.812 20,11.8 20,7.602 20,3.403 16.199,0 12,0' id='path1' style='opacity:1;fill:%23fef103;fill-opacity:1' sodipodi:nodetypes='cscsc' /%3E%3C/svg%3E%0A");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  text-align: center;
+  color: black !important;
+  padding-top: 13px !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  font-family: 'oswaldlight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.info-title {
+  color: rgb(253, 240, 0) !important;
+  font-family: OpenSansRegular, sans-serif;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  height: 20px;
+  line-height: 20px;
+}
+
+.info-address {
+  color: white !important;
+  font-family: OpenSansRegular, sans-serif;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  height: 20px;
+  line-height: 20px;
 }

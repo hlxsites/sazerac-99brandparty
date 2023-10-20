@@ -96,6 +96,8 @@ function printResults(array, elem, nresult) {
   if (array.length > 0) {
     let page = null;
     let show = true;
+    const totalResults = array.length;
+    let pageNumber = -1;
     array.forEach((element, i) => {
       if (!page) {
         page = document.createElement('div');
@@ -104,11 +106,24 @@ function printResults(array, elem, nresult) {
         if (!show) {
           page.style.display = 'none';
         }
+        pageNumber += 1;
+        const pageTitle = document.createElement('span');
+        const from = pageNumber * nresult + 1;
+        let to = pageNumber * nresult + nresult;
+        if (to > totalResults) {
+          to = totalResults;
+        }
+        pageTitle.innerHTML = `${from}-${to} of ${totalResults} results found`;
+        page.appendChild(pageTitle);
       }
       const div = document.createElement('div');
       div.className = 'result';
-      div.innerHTML = `<p class='info-title'>${element.name}</p>
-        <p class='info-address'>${element.address}, ${element.city}, ${element.state}</p>
+      div.innerHTML = `
+        <p class='icon-num'>${i + 1}</p>
+        <div>
+            <p class='info-title'>${element.name}</p>
+            <p class='info-address'>${element.address}, ${element.city}, ${element.state}</p>
+        </div>
         <a class='button' target='_blank' href='${getLink(pos.lat, pos.lng, element.latitude, element.longitude)}'>DIRECTIONS</a>
       `;
       page.appendChild(div);
@@ -241,6 +256,9 @@ export async function initMap() {
 }
 
 export default async function decorate(block) {
+  const disclaimer = block.querySelector('div');
+  disclaimer.classList.add('disclaimer');
+  disclaimer.remove();
   window.locate = async (form) => {
     formSubmitted(form);
   };
@@ -256,6 +274,7 @@ export default async function decorate(block) {
   mdiv.id = 'locator-map';
   mdiv.className = 'map';
   d.append(mdiv);
+  d.append(disclaimer);
   const rdiv = document.createElement('div');
   rdiv.id = 'locator-results';
   rdiv.className = 'results';
