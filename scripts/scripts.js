@@ -8,6 +8,7 @@ import {
   decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
+  getMetadata,
   waitForLCP,
   loadBlocks,
   loadCSS,
@@ -16,13 +17,14 @@ import {
   loadProduct,
 } from './products.js';
 
-const LCP_BLOCKS = ['hero']; // add your LCP blocks to the list
+const LCP_BLOCKS = ['hero', 'heroslides']; // add your LCP blocks to the list
 
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
+  if (main.querySelector('.heroslides')) return;
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise, max-len
@@ -48,6 +50,56 @@ function buildHeroBlock(main) {
   }
 }
 
+export function getCookie(cname) {
+  const cName = `${cname}=`;
+  const ca = document.cookie.split(';');
+  /* eslint-disable-next-line no-plusplus */
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(cName) === 0) {
+      return c.substring(cName.length, c.length);
+    }
+  }
+  return false;
+}
+
+export function setCookie(name, value, timeInMillis, path) {
+  const date = new Date();
+  date.setTime(date.getTime() + (timeInMillis));
+  const expiry = `expires=${date.toGMTString()}`;
+  const cookie = `${name}=${value}; ${expiry}; path=${path}; SameSite=None; Secure`;
+  document.cookie = cookie;
+}
+
+export function getUrlParameter(sParam) {
+  const sPageURL = window.location.search.substring(1);
+  const sURLVariables = sPageURL.split('&');
+  /* eslint-disable-next-line no-plusplus */
+  for (let i = 0; i < sURLVariables.length; i++) {
+    const sParameterName = sURLVariables[i].split('=');
+
+    if (sParameterName[0] === sParam) {
+      return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+    }
+  }
+  return false;
+}
+
+/**
+ * Builds ageconfirm block and prepends to main in a new section.
+ * @param {Element} main The container element
+ */
+function buildAgeConfirmBlock(main) {
+  if (!(getCookie('sazAgeOK') || getUrlParameter('noAgeCheck'))) {
+    const section = document.createElement('div');
+    section.append(buildBlock('ageverification', { elems: [] }));
+    main.prepend(section);
+  }
+}
+
 /**
  * load fonts.css and set a session storage flag
  */
@@ -67,9 +119,20 @@ async function loadFonts() {
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    buildAgeConfirmBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
+  }
+}
+
+/**
+ * Load theme css
+ */
+function loadTheme() {
+  const theme = getMetadata('theme');
+  if (theme) {
+    loadCSS(`${window.hlx.codeBasePath}/styles/theme-${theme}.css`);
   }
 }
 
@@ -79,6 +142,7 @@ function buildAutoBlocks(main) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
+  loadTheme();
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
@@ -109,6 +173,23 @@ async function loadEager(doc) {
     }
   } catch (e) {
     // do nothing
+  }
+}
+
+const POSTFIX = '99 Brand Party';
+
+function setTitle(doc) {
+  const title = doc.querySelector('head title');
+  if (title) {
+    if (!title.textContent.includes(POSTFIX)) {
+      title.textContent = `${title.textContent} – ${POSTFIX}`;
+    }
+  }
+  const metaTitle = doc.querySelector('head meta[property="og:title"]');
+  if (metaTitle) {
+    if (!metaTitle.content?.includes(POSTFIX)) {
+      metaTitle.content = `${metaTitle.content} – ${POSTFIX}`;
+    }
   }
 }
 
@@ -148,6 +229,7 @@ function addFavIcon(
  */
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
+  setTitle(doc);
   await loadBlocks(main);
 
   const { hash } = window.location;
