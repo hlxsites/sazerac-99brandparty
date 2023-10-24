@@ -53,17 +53,6 @@ function getLink(x1, y1, x2, y2) {
 function addMarker(place, i) {
   // eslint-disable-next-line no-undef
   const myLatlng = new google.maps.LatLng(place.latitude, place.longitude);
-  const pinColor = 'FEF102';
-  // eslint-disable-next-line no-undef
-  const pinImage = new google.maps.MarkerImage(
-    `http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|${pinColor}`,
-    // eslint-disable-next-line no-undef
-    new google.maps.Size(21, 34),
-    // eslint-disable-next-line no-undef
-    new google.maps.Point(0, 0),
-    // eslint-disable-next-line no-undef
-    new google.maps.Point(10, 34),
-  );
   // eslint-disable-next-line no-undef
   const marker = new google.maps.Marker({
     map,
@@ -174,27 +163,35 @@ function printResults(array, elem, nresult) {
 }
 
 async function makeQueryProduct(product, radius) {
-  // TODO enable locator api when cors problems are solved
-  const url = '/blocks/locator/testdata.json'; // `https://api.sazerac.com/where_to_buy/api/products/${product}.json?lat=${pos.lat}&lng=${pos.lng}&token=75r_SCHLMSclHme0x9K_iA&within=${radius}`;
-  const response = await fetch(url, { mode: 'no-cors' });
-  if (response.ok) {
-    const data = await response.json();
-    infoWindow.close();
-    const isCountryWithAlcohol = await isCountryWithoutAlcohol();
-    if (!isCountryWithAlcohol) {
-      if (data) {
-        data.data.locations.forEach((location, i) => {
-          addMarker(location, i);
-        });
-        printResults(data.data.locations, document.getElementById('locator-results'), resultsPerPage);
+  let url = `https://api.sazerac.com/where_to_buy/api/products/${product}.json?lat=${pos.lat}&lng=${pos.lng}&token=-TPkTzrildt0m_nwP2N_7g&within=${radius}`;
+  if (window.location.href.includes('localhost')) {
+    // for local development, use testdata
+    url = '/blocks/locator/testdata.json';
+  }
+
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const data = await response.json();
+      infoWindow.close();
+      const isCountryWithAlcohol = await isCountryWithoutAlcohol();
+      if (!isCountryWithAlcohol) {
+        if (data) {
+          data.data.locations.forEach((location, i) => {
+            addMarker(location, i);
+          });
+          printResults(data.data.locations, document.getElementById('locator-results'), resultsPerPage);
+        } else {
+          alert99('No results found, try another flavor.');
+        }
       } else {
-        alert99('No results found, try another flavor.');
+        alert99(isCountryWithAlcohol);
+        infoWindow.open(map);
+        infoWindow.setContent(isCountryWithAlcohol);
       }
-    } else {
-      alert99(isCountryWithAlcohol);
-      infoWindow.open(map);
-      infoWindow.setContent(isCountryWithAlcohol);
     }
+  } catch (err) {
+    alert99(err);
   }
 }
 
