@@ -91,6 +91,28 @@ function addMarker(place, i) {
   markers.push(marker);
 }
 
+function pageLeft() {
+  const current = document.querySelector('.active');
+  const next = current.previousElementSibling;
+  if (next.classList.contains('results-page')) {
+    current.classList.remove('active');
+    current.classList.add('inactive');
+    next.classList.remove('inactive');
+    next.classList.add('active');
+  }
+}
+
+function pageRight() {
+  const current = document.querySelector('.active');
+  const next = current.nextElementSibling;
+  if (next.classList.contains('results-page')) {
+    current.classList.remove('active');
+    current.classList.add('inactive');
+    next.classList.remove('inactive');
+    next.classList.add('active');
+  }
+}
+
 function printResults(array, elem, nresult) {
   elem.innerHTML = '';
   if (array.length > 0) {
@@ -103,8 +125,10 @@ function printResults(array, elem, nresult) {
         page = document.createElement('div');
         page.className = 'results-page';
         elem.appendChild(page);
-        if (!show) {
-          page.style.display = 'none';
+        if (show) {
+          page.classList.add('active');
+        } else {
+          page.classList.add('inactive');
         }
         pageNumber += 1;
         const pageTitle = document.createElement('span');
@@ -133,9 +157,17 @@ function printResults(array, elem, nresult) {
         show = false;
       }
     });
-    if (!show && page) {
-      // TODO add pagination
-    }
+    page = document.createElement('div');
+    page.className = 'pageination';
+    elem.appendChild(page);
+    const left = document.createElement('div');
+    left.className = 'pageinator-left';
+    left.addEventListener('click', pageLeft);
+    page.append(left);
+    const right = document.createElement('div');
+    right.className = 'pageinator-right';
+    right.addEventListener('click', pageRight);
+    page.append(right);
   } else {
     alert99('No results found, try another flavor.');
   }
