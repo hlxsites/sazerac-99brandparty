@@ -1,5 +1,4 @@
-import * as FormData from 'form-data';
-import Mailgun from 'mailgun.js';
+import {loadScript} from "../../scripts/lib-franklin.js";
 
 function constructPayload(form) {
   const payload = {};
@@ -14,25 +13,8 @@ function constructPayload(form) {
 }
 
 async function submitForm(form) {
-  const API_KEY = 'YOUR_API_KEY';
-  const DOMAIN = 'YOUR_DOMAIN_NAME';
-  const mailgun = new Mailgun(formData);
-  const client = mailgun.client({ username: 'api', key: API_KEY });
-
-  const messageData = {
-    from: 'Excited User <me@samples.mailgun.org>',
-    to: 'foo@example.com, bar@example.com',
-    subject: 'Hello',
-    text: 'Testing some Mailgun awesomeness!',
-  };
-
-  client.messages.create(DOMAIN, messageData)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  loadScript('/scripts/mailgun-bundle.js', { defer: true });
+  console.log('yolo');
 }
 
 function createSelect(fd) {
