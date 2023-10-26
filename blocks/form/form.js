@@ -1,3 +1,6 @@
+import * as FormData from 'form-data';
+import Mailgun from 'mailgun.js';
+
 function constructPayload(form) {
   const payload = {};
   [...form.elements].forEach((fe) => {
@@ -11,18 +14,25 @@ function constructPayload(form) {
 }
 
 async function submitForm(form) {
-  const payload = constructPayload(form);
-  payload.timestamp = new Date().toJSON();
-  const resp = await fetch(form.dataset.action, {
-    method: 'POST',
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ data: payload }),
-  });
-  await resp.text();
-  return payload;
+  const API_KEY = 'YOUR_API_KEY';
+  const DOMAIN = 'YOUR_DOMAIN_NAME';
+  const mailgun = new Mailgun(formData);
+  const client = mailgun.client({ username: 'api', key: API_KEY });
+
+  const messageData = {
+    from: 'Excited User <me@samples.mailgun.org>',
+    to: 'foo@example.com, bar@example.com',
+    subject: 'Hello',
+    text: 'Testing some Mailgun awesomeness!',
+  };
+
+  client.messages.create(DOMAIN, messageData)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 function createSelect(fd) {
