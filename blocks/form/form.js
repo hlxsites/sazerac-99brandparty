@@ -17,9 +17,6 @@ async function submitForm(form) {
   const resp = await fetch(url, {
     method: 'GET',
     cache: 'no-cache',
-    headers: {
-      origin: window.location.host,
-    },
   });
   await resp.text();
   return resp.status;
