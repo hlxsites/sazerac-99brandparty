@@ -28,7 +28,7 @@ function main(params) {
       const client = mailgun.client({ username: 'api', key: params.MAILGUN_API_KEY });
 
       const messageData = {
-        from: 'contact@mg.99BrandParty.com',
+        from: 'no-reply@mg.99brandparty.com',
         to: email,
         subject: 'Consumer Contact from 99Brandparty.com',
         text: `${name}, email: ${email}, phone: ${phone}. sent this note: ${note}`,
@@ -37,16 +37,11 @@ function main(params) {
       client.messages.create(DOMAIN, messageData)
         .then((res) => {
           returnVal = res;
-        })
-        .catch((err) => {
-          retStatus = 500;
-          returnVal = err;
         });
     } catch (err) {
       retStatus = 500;
     }
   }
-
   return {
     statusCode: retStatus,
     body: {
