@@ -1,4 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const formData = require('form-data');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const Mailgun = require('mailgun.js');
 
 function main(params) {
@@ -6,11 +8,11 @@ function main(params) {
   let returnVal = 'Forbidden';
   let sendMail = false;
   // eslint-disable-next-line no-underscore-dangle
-  // if (params.__ow_headers.referer && params.__ow_headers.referer.includes('99brandparty')) {
-  retStatus = 200;
-  returnVal = params;
-  sendMail = true;
-  // }
+  if (params.__ow_headers.referer && params.__ow_headers.referer.includes('99brandparty')) {
+    retStatus = 200;
+    returnVal = params;
+    sendMail = true;
+  }
 
   if (sendMail) {
     try {
@@ -27,9 +29,9 @@ function main(params) {
 
       const messageData = {
         from: 'contact@mg.99BrandParty.com',
-        to: 'rliechti@adobe.com',
-        subject: `Contact on 99brandparty: ${name}`,
-        text: `${name}, email: ${email}, phone: ${phone} sent a note: ${note}`,
+        to: email,
+        subject: 'Consumer Contact from 99Brandparty.com',
+        text: `${name}, email: ${email}, phone: ${phone}. sent this note: ${note}`,
       };
 
       client.messages.create(DOMAIN, messageData)
