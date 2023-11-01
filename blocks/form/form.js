@@ -1,5 +1,3 @@
-import {loadScript} from "../../scripts/lib-franklin.js";
-
 function constructPayload(form) {
   const payload = {};
   [...form.elements].forEach((fe) => {
@@ -13,8 +11,18 @@ function constructPayload(form) {
 }
 
 async function submitForm(form) {
-  loadScript('/scripts/mailgun-bundle.js', { defer: true });
-  console.log('yolo');
+  const payload = constructPayload(form);
+  payload.timestamp = new Date().toJSON();
+  const resp = await fetch(form.dataset.action, {
+    method: 'POST',
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ data: payload }),
+  });
+  await resp.text();
+  return payload;
 }
 
 function createSelect(fd) {
@@ -185,6 +193,7 @@ async function createForm(formURL) {
 export default async function decorate(block) {
   const form = block.querySelector('a[href$=".json"]');
   if (form) {
+    form.parentElement.classList.add('button-container');
     form.replaceWith(await createForm(form.href));
     if (document.location.href.includes('status=sent')) {
       const div = document.createElement('div');
