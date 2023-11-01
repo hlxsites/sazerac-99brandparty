@@ -13,16 +13,16 @@ function constructPayload(form) {
 async function submitForm(form) {
   const payload = constructPayload(form);
   payload.timestamp = new Date().toJSON();
-  const resp = await fetch(form.dataset.action, {
-    method: 'POST',
+  const url = `https://259179-rliechtihelloworld.adobeioruntime.net/api/v1/web/default/sendmail?name=${payload.name}&phone=${payload.phone}&email=${payload.email}&note=${payload.note}`;
+  const resp = await fetch(url, {
+    method: 'GET',
     cache: 'no-cache',
     headers: {
-      'Content-Type': 'application/json',
+      origin: window.location.host,
     },
-    body: JSON.stringify({ data: payload }),
   });
   await resp.text();
-  return payload;
+  return resp.status;
 }
 
 function createSelect(fd) {
@@ -75,9 +75,13 @@ function createButton(fd) {
           await window[fct](form);
           button.removeAttribute('disabled');
         } else {
-          await submitForm(form);
+          const returnedStatus = await submitForm(form);
           const redirectTo = fd.Extra;
-          window.location.href = redirectTo;
+          if (returnedStatus === 200) {
+            window.location.href = `${redirectTo}?status=sent`;
+          } else {
+            window.location.href = `${redirectTo}?status=failed`;
+          }
         }
       }
     });
@@ -199,6 +203,11 @@ export default async function decorate(block) {
       const div = document.createElement('div');
       div.innerHTML = 'Thank you for your message. It has been sent.';
       div.classList.add('success');
+      document.querySelector('.section').appendChild(div);
+    } else if (document.location.href.includes('status=failed')) {
+      const div = document.createElement('div');
+      div.innerHTML = 'Your message could not be sent. Please contact by phone or email.';
+      div.classList.add('failed');
       document.querySelector('.section').appendChild(div);
     }
   }
