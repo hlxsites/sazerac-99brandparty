@@ -4,6 +4,7 @@ This chapter shows how a new product can be added and how the templating works.
 
 ## The template
 It is stored in /templates/liquer.docx
+
 ![img.png](assets/liquer-template.png)
 
 There are three sections: the top, the center and the bottom section.
