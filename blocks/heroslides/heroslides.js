@@ -1,3 +1,5 @@
+import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
+
 export default async function decorate(block) {
   const hidden = block.querySelector(':scope > div:nth-of-type(2)');
   hidden.classList.add('hidden');
@@ -8,6 +10,8 @@ export default async function decorate(block) {
     element.parentElement.append(wrapper);
     element.remove();
     wrapper.append(element);
+    wrapper.querySelectorAll('img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '340' }])));
+
     const links = Object.assign(document.createElement('div'), {
       className: 'links',
     });
