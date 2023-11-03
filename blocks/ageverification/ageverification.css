@@ -87,7 +87,6 @@ main .ageverification .verification {
 
 main .ageverification .background img {
   object-fit: cover;
-  object-position: cover;
   width: 100%;
 }
 
