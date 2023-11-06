@@ -10,11 +10,12 @@ function constructPayload(form) {
   return payload;
 }
 
-async function submitForm(form) {
+async function submitForm(form, token) {
   const payload = constructPayload(form);
   payload.timestamp = new Date().toJSON();
-  const url = `https://259179-rliechtihelloworld.adobeioruntime.net/api/v1/web/default/sendmail?name=${payload.name}&phone=${payload.phone}&email=${payload.email}&note=${payload.note}`;
-  const resp = await fetch(url, {
+  const url = `https://259179-rliechtihelloworld.adobeioruntime.net/api/v1/web/default/sendmail?name=${payload.name}&phone=${payload.phone}&email=${payload.email}&note=${payload.note}&token=${token}`;
+
+  const resp = fetch(url, {
     method: 'GET',
     cache: 'no-cache',
   });
@@ -72,13 +73,19 @@ function createButton(fd) {
           await window[fct](form);
           button.removeAttribute('disabled');
         } else {
-          const returnedStatus = await submitForm(form);
-          const redirectTo = fd.Extra;
-          if (returnedStatus === 200) {
-            window.location.href = `${redirectTo}?status=sent`;
-          } else {
-            window.location.href = `${redirectTo}?status=failed`;
-          }
+          // eslint-disable-next-line no-undef
+          grecaptcha.ready(() => {
+            // eslint-disable-next-line no-undef
+            grecaptcha.execute('6LfrAQgeAAAAAP0zLUqJQydsBxkJp-XZK8KsKX_d', { action: 'submit' }).then((token) => {
+              const returnedStatus = submitForm(form, token);
+              const redirectTo = fd.Extra;
+              if (returnedStatus === 200) {
+                window.location.href = `${redirectTo}?status=sent`;
+              } else {
+                window.location.href = `${redirectTo}?status=failed`;
+              }
+            });
+          });
         }
       }
     });
