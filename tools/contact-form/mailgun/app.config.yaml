@@ -12,6 +12,7 @@ application:
             inputs:
               LOG_LEVEL: debug
               MAILGUN_API_KEY: ${MAILGUN_API_KEY}
+              GCAPTCHA_SECRET: ${GCAPTCHA_SECRET}
             annotations:
               require-adobe-auth: false
               final: true

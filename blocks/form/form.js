@@ -15,7 +15,7 @@ async function submitForm(form, token) {
   payload.timestamp = new Date().toJSON();
   const url = `https://259179-rliechtihelloworld.adobeioruntime.net/api/v1/web/default/sendmail?name=${payload.name}&phone=${payload.phone}&email=${payload.email}&note=${payload.note}&token=${token}`;
 
-  const resp = fetch(url, {
+  const resp = await fetch(url, {
     method: 'GET',
     cache: 'no-cache',
   });
@@ -76,7 +76,7 @@ function createButton(fd) {
           // eslint-disable-next-line no-undef
           grecaptcha.ready(() => {
             // eslint-disable-next-line no-undef
-            grecaptcha.execute('6LfrAQgeAAAAAP0zLUqJQydsBxkJp-XZK8KsKX_d', { action: 'submit' }).then((token) => {
+            grecaptcha.execute('6LcObf0oAAAAADzBdyJ7hBbcGKdh-bkk4uWcq6-0', { action: 'submit' }).then((token) => {
               const returnedStatus = submitForm(form, token);
               const redirectTo = fd.Extra;
               if (returnedStatus === 200) {
