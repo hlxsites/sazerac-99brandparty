@@ -10,11 +10,11 @@ async function main(params) {
   let returnVal = 'Forbidden';
   let sendMail = false;
   // eslint-disable-next-line no-underscore-dangle
-  // if (params.__ow_headers.referer && params.__ow_headers.referer.includes('99brandparty')) {
-  retStatus = 200;
-  returnVal = params;
-  sendMail = true;
-  // }
+  if (params.__ow_headers.referer && params.__ow_headers.referer.includes('99brandparty')) {
+    retStatus = 200;
+    returnVal = params;
+    sendMail = true;
+  }
 
   if (sendMail) {
     try {
@@ -22,7 +22,7 @@ async function main(params) {
       const gfetch = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${params.GCAPTCHA_SECRET}&response=${params.token}&remoteip=${params.__ow_headers['x-envoy-external-address']}`, {
         method: 'POST',
       });
-      const req = await gfetch.text();
+      const req = await gfetch.json();
       if (req.success) {
         const name = params.name || 'not set';
         const phone = params.phone || 'not set';

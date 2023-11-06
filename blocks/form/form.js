@@ -76,14 +76,15 @@ function createButton(fd) {
           // eslint-disable-next-line no-undef
           grecaptcha.ready(() => {
             // eslint-disable-next-line no-undef
-            grecaptcha.execute('6LcObf0oAAAAADzBdyJ7hBbcGKdh-bkk4uWcq6-0', { action: 'submit' }).then((token) => {
-              const returnedStatus = submitForm(form, token);
-              const redirectTo = fd.Extra;
-              if (returnedStatus === 200) {
-                window.location.href = `${redirectTo}?status=sent`;
-              } else {
-                window.location.href = `${redirectTo}?status=failed`;
-              }
+            grecaptcha.execute('6LcObf0oAAAAADzBdyJ7hBbcGKdh-bkk4uWcq6-0', { action: 'submit' }).then(async (token) => {
+              submitForm(form, token).then((status) => {
+                const redirectTo = fd.Extra;
+                if (status === 200) {
+                  window.location.href = `${redirectTo}?status=sent`;
+                } else {
+                  window.location.href = `${redirectTo}?status=failed`;
+                }
+              });
             });
           });
         }
