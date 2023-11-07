@@ -8,7 +8,7 @@ export default async function decorate(block) {
     indexedProducts.forEach((e) => {
       const entry = document.createElement('div');
       entry.innerHTML = `<a href="${e.path}" title="${e.title}"><h3>${e.title}</h3></a><p class="button-container"><a href="${e.path}" title="${e.title}" class="button secondary">More</a></p>`;
-      entry.querySelector('a').prepend(createOptimizedPicture(e.image, e.title, false, [{ width: '750' }]));
+      entry.querySelector('a').prepend(createOptimizedPicture(e.image, `image of ${e.title}`, false, [{ width: '750' }]));
       block.append(entry);
     });
 
