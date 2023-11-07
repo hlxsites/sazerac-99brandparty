@@ -31,7 +31,7 @@ function isZIP(text) {
 }
 
 async function isCountryWithoutAlcohol() {
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyAyfNEYMmECQLIBpa97FVwiQH0Q9ayqK0Y&location_type=APPROXIMATE&result_type=administrative_area_level_1`;
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.lat},${pos.lng}&key=AIzaSyC54liD6xIE5pFsq2_gUofFnCcthML-9EE&location_type=APPROXIMATE&result_type=administrative_area_level_1`;
   const response = await fetch(url);
   let country;
   if (response.ok) {
@@ -158,6 +158,7 @@ function printResults(array, elem, nresult) {
     right.addEventListener('click', pageRight);
     page.append(right);
   } else {
+    console.log('no array content');
     alert99('No results found, try another flavor.');
   }
 }
@@ -198,14 +199,16 @@ async function makeQueryProduct(product, radius) {
 }
 
 async function searchForZip(zip, product, radius) {
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${zip}&key=AIzaSyAyfNEYMmECQLIBpa97FVwiQH0Q9ayqK0Y`;
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${zip}&key=AIzaSyC54liD6xIE5pFsq2_gUofFnCcthML-9EE`;
   const response = await fetch(url);
   if (!response.ok) {
     alert99('No results found, try another flavor.');
+    console.log(response);
   } else {
     const data = await response.json();
     if (data.results.length === 0) {
       alert99('No results found, try another flavor.');
+      console.log('no data');
     } else {
       pos = data.results[0].geometry.location;
       map.setCenter(pos);
