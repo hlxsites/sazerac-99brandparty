@@ -31,8 +31,10 @@ function isZIP(text) {
 }
 
 async function isCountryWithoutAlcohol() {
+  // eslint-disable-next-line no-undef
   const geocoder = new google.maps.Geocoder();
   let country;
+  // eslint-disable-next-line no-undef
   const searchPosition = new google.maps.LatLng(pos.lat, pos.lng);
   await geocoder.geocode({ location: searchPosition }, async (results, status) => {
     if (status === 'OK') {
@@ -161,7 +163,6 @@ function printResults(array, elem, nresult) {
     right.addEventListener('click', pageRight);
     page.append(right);
   } else {
-    console.log('no array content');
     alert99('No results found, try another flavor.');
   }
 }
@@ -202,10 +203,12 @@ async function makeQueryProduct(product, radius) {
 }
 
 async function searchForZip(zip, product, radius) {
+  // eslint-disable-next-line no-undef
   const geocoder = new google.maps.Geocoder();
   geocoder.geocode({ address: zip }, async (results, status) => {
     if (status === 'OK') {
       map.setCenter(results[0].geometry.location);
+      // eslint-disable-next-line no-undef,no-new
       new google.maps.Marker({
         map,
         position: results[0].geometry.location,
@@ -213,7 +216,6 @@ async function searchForZip(zip, product, radius) {
       await makeQueryProduct(product, radius);
     } else {
       alert99('No results found, try another flavor.');
-      console.log(status);
     }
   });
 }
