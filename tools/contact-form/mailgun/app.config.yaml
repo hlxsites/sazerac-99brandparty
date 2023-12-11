@@ -2,7 +2,7 @@ application:
   actions: actions
   runtimeManifest:
     packages:
-      default:
+      mailgun:
         license: Apache-2.0
         actions:
           sendmail:
