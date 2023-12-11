@@ -13,7 +13,7 @@ function constructPayload(form) {
 async function submitForm(form, token) {
   const payload = constructPayload(form);
   payload.timestamp = new Date().toJSON();
-  const url = `https://266117-714copperbee.adobeioruntime.net/api/v1/web/default/sendmail?name=${payload.name}&phone=${payload.phone}&email=${payload.email}&note=${payload.note}&token=${token}`;
+  const url = `https://266117-714copperbee.adobeioruntime.net/api/v1/web/mailgun/sendmail?name=${payload.name}&phone=${payload.phone}&email=${payload.email}&note=${payload.note}&token=${token}`;
 
   const resp = await fetch(url, {
     method: 'GET',
