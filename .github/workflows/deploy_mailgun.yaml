@@ -35,11 +35,13 @@ jobs:
         with:
           os: ${{ matrix.os }}
           command: build
-          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_STAGE }}
+          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}
       - name: Deploy
         uses: adobe/aio-apps-action@1.0.0
         with:
           os: ${{ matrix.os }}
           command: deploy
-          AIO_RUNTIME_AUTH: ${{ secrets.AIO_RUNTIME_AUTH_STAGE }}
-          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_STAGE }}
+          AIO_RUNTIME_AUTH: ${{ secrets.AIO_RUNTIME_AUTH_PROD }}
+          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}
+          MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
+          GCAPTCHA_SECRET: ${{ secrets.GCAPTCHA_SECRET }}
