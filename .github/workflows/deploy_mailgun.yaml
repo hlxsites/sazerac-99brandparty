@@ -10,7 +10,7 @@ defaults:
     working-directory: tools/contact-form/mailgun
 jobs:
   deploy:
-    name: Deploy AIO Mailgun to 99brandparty production
+    name: Deploy to Prod
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 1
@@ -27,25 +27,26 @@ jobs:
       - name: npm install
         run: npm i
       - name: Setup CLI
-        uses: adobe/aio-cli-setup-action@1.0.0
+        uses: adobe/aio-cli-setup-action@1.1.0
         with:
           os: ${{ matrix.os }}
-      # - name: Build
-      #   uses: adobe/aio-apps-action@1.0.0
-      #   env:
-      #     ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-      #   with:
-      #     os: ${{ matrix.os }}
-      #     command: build
-      #     AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}
-      - name: Deploy
-        uses: adobe/aio-apps-action@1.0.0
+          version: 8.x.x
+      - name: Build
         env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}
+        uses: adobe/aio-apps-action@2.0.1
+        with:
+          os: ${{ matrix.os }}
+          command: build
+      - name: Deploy
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}
+          AIO_RUNTIME_AUTH: ${{ secrets.AIO_RUNTIME_AUTH_PROD }}
+          MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
+          GCAPTCHA_SECRET: ${{ secrets.GCAPTCHA_SECRET }}
+        uses: adobe/aio-apps-action@2.0.1
         with:
           os: ${{ matrix.os }}
           command: deploy
-          AIO_RUNTIME_AUTH: ${{ secrets.AIO_RUNTIME_AUTH_PROD }}
-          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}
-          MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
-          GCAPTCHA_SECRET: ${{ secrets.GCAPTCHA_SECRET }}
