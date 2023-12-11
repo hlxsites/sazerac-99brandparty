@@ -30,14 +30,14 @@ jobs:
         uses: adobe/aio-cli-setup-action@1.0.0
         with:
           os: ${{ matrix.os }}
-      - name: Build
-        uses: adobe/aio-apps-action@1.0.0
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-        with:
-          os: ${{ matrix.os }}
-          command: build
-          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}
+      # - name: Build
+      #   uses: adobe/aio-apps-action@1.0.0
+      #   env:
+      #     ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      #   with:
+      #     os: ${{ matrix.os }}
+      #     command: build
+      #     AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}
       - name: Deploy
         uses: adobe/aio-apps-action@1.0.0
         env:
