@@ -5,9 +5,6 @@ on:
     branches:
       - 77-email
       - master
-defaults:
-  run:
-    working-directory: tools/contact-form/mailgun
 jobs:
   deploy:
     name: Deploy to Prod
@@ -19,7 +16,16 @@ jobs:
         os: [ubuntu-latest]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          sparse-checkout: 'tools/contact-form/mailgun'
+          sparse-checkout-cone-mode: false
+      - name: Move files to root
+        run: |
+          ls -lah
+          mv tools/contact-form/mailgun/* .
+          rm -rf tools
+          ls -lah
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
