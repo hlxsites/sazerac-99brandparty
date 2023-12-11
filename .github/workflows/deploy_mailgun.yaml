@@ -36,7 +36,6 @@ jobs:
         uses: adobe/aio-cli-setup-action@1.1.0
         with:
           os: ${{ matrix.os }}
-          version: 8.x.x
       - name: Build
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
