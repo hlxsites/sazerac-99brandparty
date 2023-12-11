@@ -8,10 +8,12 @@ on:
 jobs:
   deploy:
     name: Deploy to Prod
+    runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 1
       matrix:
         node-version: ['20']
+        os: [ubuntu-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -33,12 +35,14 @@ jobs:
       - name: Setup CLI
         uses: adobe/aio-cli-setup-action@1.2.0
         with:
+          os: ${{ matrix.os }}
       - name: Build
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
           AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}
         uses: adobe/aio-apps-action@2.0.2
         with:
+          os: ${{ matrix.os }}
           command: build
       - name: Deploy
         env:
@@ -49,4 +53,5 @@ jobs:
           GCAPTCHA_SECRET: ${{ secrets.GCAPTCHA_SECRET }}
         uses: adobe/aio-apps-action@2.0.2
         with:
+          os: ${{ matrix.os }}
           command: deploy
