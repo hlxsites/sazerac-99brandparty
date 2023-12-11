@@ -33,22 +33,17 @@ jobs:
       - name: Build
         uses: adobe/aio-apps-action@1.0.0
         env:
-          aio_ns_prod: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}  
+          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}  
         with:
           os: ${{ matrix.os }}
           command: build
-          AIO_RUNTIME_NAMESPACE: $aio_ns_prod
       - name: Deploy
         uses: adobe/aio-apps-action@1.0.0
         env:
-          aio_auth_prod: ${{ secrets.AIO_RUNTIME_AUTH_PROD }}  
-          aio_ns_prod: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}  
-          mailgun_prod: ${{ secrets.MAILGUN_API_KEY }}  
-          captcha_prod: ${{ secrets.GCAPTCHA_SECRET }}  
+          AIO_RUNTIME_AUTH: ${{ secrets.AIO_RUNTIME_AUTH_PROD }}  
+          AIO_RUNTIME_NAMESPACE: ${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}  
+          MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}  
+          GCAPTCHA_SECRET: ${{ secrets.GCAPTCHA_SECRET }}  
         with:
           os: ${{ matrix.os }}
           command: deploy
-          AIO_RUNTIME_AUTH: $aio_auth_prod
-          AIO_RUNTIME_NAMESPACE: $aio_ns_prod
-          MAILGUN_API_KEY: $mailgun_prod
-          GCAPTCHA_SECRET: $captcha_prod
