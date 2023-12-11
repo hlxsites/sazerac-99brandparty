@@ -36,7 +36,7 @@ async function main(params) {
 
         const messageData = {
           from: 'no-reply@mg.99brandparty.com',
-          to: 'Remo Liechti<rliechti@adobe.com>',
+          to: 'Sazerac Consumer Affairs<info@sazerac.com>',
           subject: 'Consumer Contact from 99Brandparty.com',
           text: `${name}, email: ${email}, phone: ${phone}. sent this note: ${note}`,
         };
