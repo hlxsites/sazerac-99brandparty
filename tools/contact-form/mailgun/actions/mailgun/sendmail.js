@@ -24,10 +24,10 @@ async function main(params) {
       });
       const req = await gfetch.json();
       if (req.success) {
-        const name = params.name || 'not set';
-        const phone = params.phone || 'not set';
-        const email = params.email || 'not set';
-        const note = params.note || 'not set';
+        const name = params.name || 'no name set';
+        const phone = params.phone || 'no phone set';
+        const email = params.email || 'no email set';
+        const note = params.note || 'no note added';
         returnVal = `${name}, ${phone}, ${email}, ${note}`;
 
         const DOMAIN = 'mg.99BrandParty.com';
