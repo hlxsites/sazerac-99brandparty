@@ -37,7 +37,7 @@ jobs:
         with:
           os: ${{ matrix.os }}
           command: build
-          AIO_RUNTIME_NAMESPACE: ${{ aio_ns_prod }}
+          AIO_RUNTIME_NAMESPACE: $aio_ns_prod
       - name: Deploy
         uses: adobe/aio-apps-action@1.0.0
         env:
@@ -48,7 +48,7 @@ jobs:
         with:
           os: ${{ matrix.os }}
           command: deploy
-          AIO_RUNTIME_AUTH: ${{ aio_auth_prod }}
-          AIO_RUNTIME_NAMESPACE: ${{ aio_ns_prod }}
-          MAILGUN_API_KEY: ${{ mailgun_prod }}
-          GCAPTCHA_SECRET: ${{ captcha_prod }}
+          AIO_RUNTIME_AUTH: $aio_auth_prod
+          AIO_RUNTIME_NAMESPACE: $aio_ns_prod
+          MAILGUN_API_KEY: $mailgun_prod
+          GCAPTCHA_SECRET: $captcha_prod
