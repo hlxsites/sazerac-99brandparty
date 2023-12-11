@@ -55,3 +55,6 @@ jobs:
         with:
           os: ${{ matrix.os }}
           command: deploy
+      - name: Initiate the action after deploy
+        run: |
+          curl -X POST https://${{ secrets.AIO_RUNTIME_NAMESPACE_PROD }}.adobeioruntime.net/api/v1/web/mailgun/sendmail?initiate=true

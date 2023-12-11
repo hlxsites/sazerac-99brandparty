@@ -9,11 +9,18 @@ async function main(params) {
   let retStatus = 403;
   let returnVal = 'Forbidden';
   let sendMail = false;
+
   // eslint-disable-next-line no-underscore-dangle
   if (params.__ow_headers.referer && params.__ow_headers.referer.includes('99brandparty')) {
     retStatus = 200;
     returnVal = params;
     sendMail = true;
+  }
+
+  if (params.initiate && params.initiate.includes('true')) {
+    retStatus = 200;
+    sendMail = false;
+    returnVal = 'action pre-load initiated';
   }
 
   if (sendMail) {
